@@ -38,6 +38,18 @@ Route::get('cards', 'CardsController@index');
 Route::get('cards/{card}', 'CardsController@show');
 
 Route::get('books', 'BookController@index');
+Route::get('books/category/{category}', 'BookController@getBooksFromCategory');
+
+/*login and register*/
+Route::get('/auth/login', function () {
+    return view('auth.login');}
+);
+
+Route::get('/auth/register', function () {
+    return view('auth.register');}
+);
+
+
 
 //// Authentication routes...
 //Route::get('auth/login', 'PagesController@about');
