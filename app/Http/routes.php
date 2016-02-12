@@ -34,51 +34,26 @@
 Route::get('/', 'PagesController@home');
 Route::get('about', 'PagesController@about');
 
-Route::get('cards', 'CardsController@index');
-Route::get('cards/{card}', 'CardsController@show');
+//Route::get('cards', 'CardsController@index');
+//Route::get('cards/{card}', 'CardsController@show');
 
 Route::get('books', 'BookController@index');
 Route::get('books/category/{category}', 'BookController@getBooksFromCategory');
 
+
 /*login and register*/
-Route::get('/auth/login', function () {
-    return view('auth.login');}
-);
+Route::post('/password/email', function () {
+    return view('emails.password');});
+Route::controllers([
+    'auth' => 'Auth\AuthController',
+    'password' => 'Auth\PasswordController',
+]);
+Route::group(['middleware' => ['auth']], function()
+{
+//    Route::get('cards', 'CardsController@index');
+//    Route::get('cards/{card}', 'CardsController@show');
+});
 
-Route::get('/auth/register', function () {
-    return view('auth.register');}
-);
-
-
-
-//// Authentication routes...
-//Route::get('auth/login', 'PagesController@about');
-//Route::post('auth/login', 'Auth\AuthController@postLogin');
-//Route::get('auth/logout', 'Auth\AuthController@getLogout');
-//
-//// Registration routes...
-//Route::get('auth/register', 'Auth\AuthController@getRegister');
-//Route::post('auth/register', 'Auth\AuthController@postRegister');
-//Route::controllers([
-//    'auth' => 'Auth\AuthController',
-//    'password' => 'Auth\PasswordController',
-//]);
-//
-//Route::group(['middleware' => ['auth']], function()
-//{
-//
-//});
-
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| This route group applies the "web" middleware group to every route
-| it contains. The "web" middleware group is defined in your HTTP
-| kernel and includes session state, CSRF protection, and more.
-|
-*/
 
 Route::group(['middleware' => ['web']], function () {
     //
