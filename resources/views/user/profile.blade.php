@@ -21,7 +21,7 @@
                         <input type="text" hidden name="bookId" value="{{$book->id}}">
                     <tr>
                         <td>
-                            {{ $book->title}}
+                            <a href="{{ url('/book/'.$book->id) }}">{{ $book->title}}</a>
                         </td>
                         <td>
                             {{$book->authors}}
@@ -55,7 +55,7 @@
             @foreach($allBooks as $book)
                 <tr>
                     <td>
-                        {{ $book->title}}
+                        <a href="{{ url('/book/'.$book->id) }}"> {{ $book->title}}</a>
                     </td>
                     <td>
                         {{$book->authors}}
