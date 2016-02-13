@@ -8,6 +8,7 @@ use App\Category;
 use App\Tag;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Symfony\Component\Console\Input\Input;
 
 class BookController extends Controller
 {
@@ -46,13 +47,61 @@ class BookController extends Controller
 //            print_r($book);
         }
 
-//        print_r($books);
+//       print_r($books);
 
         return view('books.index', [
             'tags' => $tags,
             'categories' => $categories,
             'books' => $books
         ]);
+    }
+
+    public function searchBooks(){
+        //echo Form::text('searchField');\
+        $tags = Tag::all();
+        $categories = Category::all();
+
+        $keyword = $_GET['searchField'];
+
+        $books = array();
+        //get from authors
+        //$result = DB::table('books')->raw_where("authors LIKE '%Nick%'")->where('approved', true)->get();
+        $results = DB::select('select * from bookstore.books where authors like "%'.$keyword.'%" and approved=1');
+        foreach ($results as $result) {
+            array_push($books, $result);
+        }
+        //get from titles
+        $results = DB::select('select * from bookstore.books where title like "%'.$keyword.'%" and approved=1');
+        foreach ($results as $result) {
+            array_push($books, $result);
+        }
+        //get from tags
+        $book_ids = DB::select('select book_id from bookstore.tags where tag like "%'.$keyword.'%"');
+        foreach($book_ids as $book_id){
+//            echo "EVE GO <br>";
+//           echo($book_id->book_id);
+            $book = DB::select('select * from bookstore.books where id = '.$book_id->book_id);
+            array_push($books,$book[0]);
+        }
+
+        $ids = array();
+        foreach($books as $book){
+            if(in_array($book->id, $ids)){
+                if (($key = array_search($book, $books)) !== false) {
+                    unset($books[$key]);
+                }
+            } else {
+                array_push($ids, $book->id);
+            }
+        }
+
+
+        return view('books.index', [
+            'tags' => $tags,
+            'categories' => $categories,
+            'books' => $books
+        ]);
+       // print_r($books);
     }
 
 }

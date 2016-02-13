@@ -48,15 +48,18 @@
             {{--</div>--}}
             {{--@endforeach--}}
             {{--@endunless--}}
-
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Enter title, author...">
+            <form  action="/books/search" method="get">
+            <div class="form-group">
+                <div class="input-group">
+                <input name="searchField" type="text" class="form-control" placeholder="Enter title, author or tag ...">
                   <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Search
+                    <button id="searchBtn" class="btn btn-default" type="submit">Search
                         {{--<span class="glyphicon glyphicon-search" aria-hidden="true"></span>--}}
                     </button>
                   </span>
+                </div>
             </div>
+            </form>
             <!-- /input-group -->
 
             @unless(empty($books))

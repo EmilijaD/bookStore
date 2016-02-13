@@ -39,6 +39,7 @@ Route::get('about', 'PagesController@about');
 
 Route::get('books', 'BookController@index');
 Route::get('books/category/{category}', 'BookController@getBooksFromCategory');
+Route::get('books/search', 'BookController@searchBooks');
 
 
 /*login and register*/
