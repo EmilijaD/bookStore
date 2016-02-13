@@ -7,6 +7,8 @@ use App\User;
 use App\Posts;
 use App\Own;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 class UserController extends Controller {
     /*
  * Display the posts of a particular user
@@ -46,6 +48,7 @@ class UserController extends Controller {
      */
     public function profile(Request $request, $id)
     {
+        $id = Auth::id();
         $data['user'] = User::find($id);
 
         $allBooks = Book::all();

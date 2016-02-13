@@ -67,6 +67,7 @@ Route::group(['middleware' => ['auth']], function()
     Route::post('user/{userId}', 'UserController@approveBook');
 
     Route::get('book/{bookId}', 'BookController@bookDetails');
+    Route::post('book/{bookId}/own', 'BookController@ownThisBook');
 //    Route::post('book/{bookId}', 'BookController@addRating');
 });
 

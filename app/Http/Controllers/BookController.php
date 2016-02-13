@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Own;
 use Faker\Provider\DateTime;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -208,5 +209,31 @@ class BookController extends Controller
             'rating' => round($rating, 1),
             'currentUserRating' => $currentUserRating
         ]);
+    }
+
+    public function ownThisBook(){
+        $currentUserId = Auth::id();
+
+        $bookIdToOwn = $_POST['bookIdToOwn'];
+
+        $datetime = new \DateTime();
+        $datetime->setTimeZone(new \DateTimeZone('Europe/Skopje'));
+
+        $owns = DB::select('select * from bookstore.owns where book_id = ' . $bookIdToOwn .' and user_id ='. $currentUserId);
+
+        if(sizeof($owns) == 0){
+            $idTag = DB::table('owns')->insertGetId(
+                array('book_id' => $bookIdToOwn, 'user_id' => $currentUserId, 'created_at' => $datetime, 'updated_at' => $datetime)
+            );
+        } else {
+            DB::table('owns')
+                ->where('book_id', $bookIdToOwn)
+                ->where('user_id', $currentUserId)
+                ->update(array('updated_at' => $datetime));
+        }
+
+        $path = '/books';
+        header("Location: ".$path);
+        exit();
     }
 }

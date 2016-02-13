@@ -10,6 +10,7 @@
 
                     <form class="form-horizontal col-lg-6 col-md-6 col-sm-12 col-xs-12">
 
+
                         <div class="form-group">
                             <label class="col-lg-3 col-md-2 col-sm-12 col-xs-12 text-info">Book Title</label>
                             <label class="col-md-9 col-sm-12 col-xs-12" id="title"> {{ $book->title}}</label>
@@ -42,7 +43,8 @@
                                 <label class="col-lg-3 col-md-3 col-sm-12 col-xs-12 text-info">Your rating</label>
 
                                 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3" id="rating">
-                                    <input type="number" min="6" max="10" name="userRating" value="{{$currentUserRating}}">
+                                    <input type="number" min="6" max="10" name="userRating"
+                                           value="{{$currentUserRating}}">
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
                                     <button type="submit" class="btn btn-success">Rate this book</button>
@@ -50,7 +52,17 @@
                             </form>
                         </div>
 
+                        {{--<div class="form-group">--}}
+                            {{--<form class="form-horizontal" action="{{ url('/book/'.$book->id.'/own') }}" method="POST">--}}
 
+                                {{--<label class="col-lg-3 col-md-3 col-sm-12 col-xs-12 text-info">Add to your profile</label>--}}
+
+                                {{--<div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">--}}
+                                    {{--<input type="text" name="bookIdToOwn" value="{{$book->id}}" hidden>--}}
+                                    {{--<button type="submit" class="btn btn-default">Claim this book</button>--}}
+                                {{--</div>--}}
+                            {{--</form>--}}
+                        {{--</div>--}}
                     </form>
 
 
@@ -95,10 +107,10 @@
 
                             </div>
                         </div>
+
+                    </form>
                 </div>
-                </form>
             </div>
-        </div>
         </div>
     @endunless
 @stop

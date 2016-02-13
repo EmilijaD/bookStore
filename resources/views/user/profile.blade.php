@@ -72,7 +72,7 @@
 
         @else
         @unless(empty($books))
-                        <h3 class="text-info">Books you own:</h3>
+                        <h3 class="text-info">Books you own</h3>
 
 
                         <table class="table table-condensed" id="tableOfBooks">

@@ -76,20 +76,25 @@
                     <table cellpadding="3" class="table table-responsive table-striped">
                         <thead>
                         <tr>
-                            <th style="width:30%;">Title</th>
-                            <th style="width:17%;">Author</th>
-                            @if (!Auth::guest())<th style="width:10%;">View details</th>@endif
+                            <th  style="width:45%;">Title</th>
+                            <th  style="width:40%;">Author</th>
+                            @if (!Auth::guest())<th style="width:15%;">Add to Your Profile</th>@endif
                         </tr>
                         </thead>
                         <tbody>
 
+
                         @foreach($books as $book)
-                            <tr>
-                                <td><p><a href="{{ url('/book/'.$book->id) }}">{{ $book->title }}</a></p></td>
-                                <td>{{ $book->authors }}</td>
-                                @if (!Auth::guest())<td><a href="{{ url('/book/'.$book->id) }}">Details</a></td>@endif
-                            </tr>
+                            <form action="{{ url('/book/'.$book->id.'/own') }}" method="POST">
+                                <input type="text" name="bookIdToOwn" value="{{$book->id}}"  hidden>
+                                <tr>
+                                    <td><p><a href="{{ url('/book/'.$book->id) }}">{{ $book->title }}</a></p></td>
+                                    <td>{{ $book->authors }}</td>
+                                    @if (!Auth::guest())<td><button type="submit" class="btn-link">Claim Book</button></td>@endif
+                                </tr>
+                            </form>
                         @endforeach
+
 
                         </tbody>
                     </table>
