@@ -85,9 +85,9 @@
 
                         @foreach($books as $book)
                             <tr>
-                                <td><p>{{ $book->title }}</p></td>
+                                <td><p><a href="{{ url('/book/'.$book->id) }}">{{ $book->title }}</a></p></td>
                                 <td>{{ $book->authors }}</td>
-                                @if (!Auth::guest())<td><a class="" href="">Details</a></td>@endif
+                                @if (!Auth::guest())<td><a href="{{ url('/book/'.$book->id) }}">Details</a></td>@endif
                             </tr>
                         @endforeach
 

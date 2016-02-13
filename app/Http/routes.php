@@ -40,8 +40,15 @@ Route::get('about', 'PagesController@about');
 Route::get('books', 'BookController@index');
 Route::get('books/category/{category}', 'BookController@getBooksFromCategory');
 Route::get('books/search', 'BookController@searchBooks');
-Route::get('books/add', 'BookController@addBookGet');
-Route::post('books/add', 'BookController@addBookPost');
+
+//Route::get('books/add', 'BookController@addBookGet');
+//Route::post('books/add', 'BookController@addBookPost');
+//
+//Route::get('user/{userId}', 'UserController@profile');
+//
+//Route::post('user/{userId}', 'UserController@approveBook');
+//
+//Route::post('approveBook/{bookId}', 'UserController@approveBook');
 
 /*login and register*/
 //Route::post('/password/email', function () {
@@ -52,8 +59,15 @@ Route::controllers([
 ]);
 Route::group(['middleware' => ['auth']], function()
 {
-//    Route::get('cards', 'CardsController@index');
-//    Route::get('cards/{card}', 'CardsController@show');
+    Route::get('books/add', 'BookController@addBookGet');
+    Route::post('books/add', 'BookController@addBookPost');
+
+    Route::get('user/{userId}', 'UserController@profile');
+
+    Route::post('user/{userId}', 'UserController@approveBook');
+
+    Route::get('book/{bookId}', 'BookController@bookDetails');
+//    Route::post('book/{bookId}', 'BookController@addRating');
 });
 
 

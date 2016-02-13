@@ -164,21 +164,23 @@ footer {
     padding-left:10px;
 }
 
-#tableOfBooks tbody tr{
-
-}
-
 #tableOfBooks tbody td{
     padding-left:10px;
     padding-right:10px;
 }
 
-#tableOfBooks tbody td a{
+#tableOfBooks tbody td a {
     margin-left: auto;
     margin-right: auto;
+    cursor: pointer;
 }
 
 
 #tableOfBooks tbody td p{
     color:#16272D;
+}
+
+#profileContent #tableOfBooks thead{
+    background-color: lightslategrey;
+    color: #1A1A18;
 }

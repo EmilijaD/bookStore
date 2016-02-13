@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use Faker\Provider\DateTime;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Book;
 use App\Category;
@@ -177,6 +179,34 @@ class BookController extends Controller
         return view('books.addbook', [
             'warning' => $warning,
             'success' => $success
+        ]);
+    }
+
+    public function bookDetails(Book $bookId)
+    {
+
+        $rating = DB::select('select AVG(rating) as "rating" from bookstore.ratings where book_id = ' . $bookId->id . ' group by book_id');
+        if(empty($rating)){
+            $rating = 0;
+        } else {
+            $rating = $rating[0]->rating;
+        }
+
+        $currentUserRating = DB::select('select * from bookstore.ratings where book_id = ' . $bookId->id .' and user_id = '. Auth::id());
+        if(empty($currentUserRating)){
+            $currentUserRating = '';
+        } else {
+            $currentUserRating = $currentUserRating[0]->rating;
+        }
+//        print_r($currentUserRating);
+//        echo $currentUserRating[0]->rating;
+        //print_r($rating[0]->rating);
+        $comments = DB::select('select * from bookstore.comments where book_id = ' . $bookId->id .' order by updated_at desc');
+        return view('books.details', [
+            'book' => $bookId,
+            'comments' => $comments,
+            'rating' => round($rating, 1),
+            'currentUserRating' => $currentUserRating
         ]);
     }
 }
