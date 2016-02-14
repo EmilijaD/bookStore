@@ -60,7 +60,7 @@
             <form  action="/books/search" method="get">
                 <div class="form-group">
                     <div class="input-group">
-                        <input name="searchField" type="text" class="form-control" placeholder="Enter title, author or tag ...">
+                        <input name="searchField" type="text" class="form-control" placeholder="Enter title, author or tag...">
                   <span class="input-group-btn">
                     <button id="searchBtn" class="btn btn-default" type="submit">Search
                         {{--<span class="glyphicon glyphicon-search" aria-hidden="true"></span>--}}
@@ -76,9 +76,9 @@
                     <table cellpadding="3" class="table table-responsive table-striped">
                         <thead>
                         <tr>
-                            <th  style="width:45%;">Title</th>
-                            <th  style="width:40%;">Author</th>
-                            @if (!Auth::guest())<th style="width:15%;">Add to Your Profile</th>@endif
+                            <th >Title</th>
+                            <th >Author</th>
+                            @if (!Auth::guest() && $canClaim)<th width="20%">Add to Your Profile</th>@endif
                         </tr>
                         </thead>
                         <tbody>
@@ -90,7 +90,7 @@
                                 <tr>
                                     <td><p><a href="{{ url('/book/'.$book->id) }}">{{ $book->title }}</a></p></td>
                                     <td>{{ $book->authors }}</td>
-                                    @if (!Auth::guest())<td><button type="submit" class="btn-link">Claim Book</button></td>@endif
+                                    @if (!Auth::guest() && $canClaim)<td><button type="submit" class="btn-link">Claim Book</button></td>@endif
                                 </tr>
                             </form>
                         @endforeach

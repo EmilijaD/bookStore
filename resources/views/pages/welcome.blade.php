@@ -20,7 +20,8 @@
             <tbody>
             @foreach ($recommendedBooks as $mybook)
                 <tr>
-                    <td><a href="{{ url('/book/'.$mybook->id) }}">{{ $mybook->title}}</a></td>
+                    <td><a href="{{ url('/book/'.$mybook->id) }}">{{ $mybook->title}} - {{$mybook->authors}}</a></td>
+                    <td>{{ $mybook->authors }}</td>
                 </tr>
             @endforeach
             </tbody>
@@ -41,7 +42,7 @@
             @foreach($books as $book)
                 <tr>
                     <td href="{{ url('/book/'.$book->id) }}"><a
-                                href="{{ url('/book/'.$book->id) }}">{{ $book->title}}</a></td>
+                                href="{{ url('/book/'.$book->id) }}">{{ $book->title}} - {{$book->authors}}</a></td>
                 </tr>
             @endforeach
             </tbody>

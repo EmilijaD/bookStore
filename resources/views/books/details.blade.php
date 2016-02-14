@@ -37,21 +37,41 @@
                             <label class="col-md-4 col-sm-12 col-xs-12" id="rating">{{$rating}}</label>
                         </div>
 
-                        <div class="form-group">
-                            <form class="form-horizontal" action="{{ url('/book/rate') }}" method="POST">
-                                <input type="text" name="bookIdToRate" value="{{$book->id}}" hidden>
+                        @if ($canClaim)
+                            <div class="form-group">
+                                <form class="form-horizontal" action="{{ url('/book/rate') }}" method="POST">
+                                    <input type="text" name="bookIdToRate" value="{{$book->id}}" hidden>
 
-                                <label class="col-lg-3 col-md-3 col-sm-12 col-xs-12 text-info">Your rating</label>
+                                    <label class="col-lg-3 col-md-3 col-sm-12 col-xs-12 text-info">Your rating</label>
 
-                                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3" id="rating">
-                                    <input type="number" min="6" max="10" name="userRating"
-                                           value="{{$currentUserRating}}">
-                                </div>
-                                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
-                                    <button type="submit" class="btn btn-success">Rate this book</button>
-                                </div>
-                            </form>
-                        </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3" id="rating">
+                                        <input type="number" min="6" max="10" name="userRating"
+                                               value="{{$currentUserRating}}">
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3">
+                                        <button type="submit" class="btn btn-success">Rate</button>
+                                    </div>
+                                </form>
+                            </div>
+                        @endif
+
+                        <br>
+
+                        @if ($canClaim)
+                            <div class="form-group">
+                                <form class="form-horizontal" action="{{ url('/book/'.$book->id.'/ownFromDetails') }}"
+                                      method="POST">
+                                    <input type="text" name="bookIdToOwn" value="{{$book->id}}" hidden>
+
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <button type="submit"
+                                                class="col-lg-12 col-md-12 col-sm-12 col-xs-12 btn btn-default btn-lg">
+                                            Claim Book
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        @endif
 
                     </div>
 
@@ -59,7 +79,7 @@
                     <div class="form-horizontal col-lg-6 col-md-6 col-sm-12 col-xs-12" action="" method="">
                         <div class="form-group">
                             <form class="form-horizontal" action="{{ url('/book/comment') }}" method="POST">
-                            <div class="panel panel-info">
+                                <div class="panel panel-info">
 
                                     <div class="panel-heading">Comments</div>
                                     <div class="panel-body">
@@ -81,10 +101,11 @@
 
                                                 @endforeach
                                             @endunless
-
-                                            <input type="text" name="bookIdToComment" value="{{$book->id}}" hidden>
-                                            <textarea class="form-control" name="commentArea" id="commentArea" rows="4"
-                                                      cols="50"> </textarea>
+                                            @if ($canClaim)
+                                                <input type="text" name="bookIdToComment" value="{{$book->id}}" hidden>
+                                                <textarea class="form-control" name="commentArea" id="commentArea"
+                                                          rows="4"
+                                                          cols="50"> </textarea>
 
 
                                         </div>
@@ -93,15 +114,16 @@
                                             <button type="submit" class="btn btn-success">Post comment</button>
                                             {{--</div>--}}
                                         </div>
-
+                                        @endif
                                     </div>
 
 
-                            </div>
+                                </div>
                             </form>
                         </div>
 
                     </div>
+
                 </div>
             </div>
         </div>

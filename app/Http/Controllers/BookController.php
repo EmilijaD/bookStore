@@ -18,6 +18,16 @@ class BookController extends Controller
     public function index()
     {
 
+        $currentUserId = Auth::id();
+
+        $admin = DB::select('select id from bookstore.users where email = ' . '"admin@admin.com"' . ' and name = "admin"');
+        $adminId = $admin[0]->id;
+
+        $canClaim = false;
+        if($currentUserId != $adminId){
+            $canClaim = true;
+        }
+
 //        $books = Book::all();
         $books = DB::table('books')->where('approved', true)->get();
         $categories = Category::all();
@@ -26,12 +36,24 @@ class BookController extends Controller
 //        return view('books.index', compact('books'));
         return view('books.index', [
             'books' => $books,
-            'categories' => $categories
+            'categories' => $categories,
+            'canClaim' => $canClaim
         ]);
     }
 
     public function getBooksFromCategory(Category $category)
     {
+
+        $currentUserId = Auth::id();
+
+        $admin = DB::select('select id from bookstore.users where email = ' . '"admin@admin.com"' . ' and name = "admin"');
+        $adminId = $admin[0]->id;
+
+        $canClaim = false;
+        if($currentUserId != $adminId){
+            $canClaim = true;
+        }
+
         $tags = Tag::all();
         $categories = Category::all();
 
@@ -55,12 +77,22 @@ class BookController extends Controller
         return view('books.index', [
             'tags' => $tags,
             'categories' => $categories,
-            'books' => $books
+            'books' => $books,
+            'canClaim' => $canClaim
         ]);
     }
 
     public function searchBooks(){
-        //echo Form::text('searchField');\
+        $currentUserId = Auth::id();
+
+        $admin = DB::select('select id from bookstore.users where email = ' . '"admin@admin.com"' . ' and name = "admin"');
+        $adminId = $admin[0]->id;
+
+        $canClaim = false;
+        if($currentUserId != $adminId){
+            $canClaim = true;
+        }
+
         $tags = Tag::all();
         $categories = Category::all();
         $keyword = $_GET['searchField'];
@@ -100,7 +132,8 @@ class BookController extends Controller
         return view('books.index', [
             'tags' => $tags,
             'categories' => $categories,
-            'books' => $books
+            'books' => $books,
+            'canClaim' => $canClaim
         ]);
         // print_r($books);
     }
@@ -185,6 +218,15 @@ class BookController extends Controller
 
     public function bookDetails(Book $bookId)
     {
+        $currentUserId = Auth::id();
+
+        $admin = DB::select('select id from bookstore.users where email = ' . '"admin@admin.com"' . ' and name = "admin"');
+        $adminId = $admin[0]->id;
+
+        $canClaim = false;
+        if($currentUserId != $adminId){
+            $canClaim = true;
+        }
 
         $rating = DB::select('select AVG(rating) as "rating" from bookstore.ratings where book_id = ' . $bookId->id . ' group by book_id');
         if(empty($rating)){
@@ -207,7 +249,8 @@ class BookController extends Controller
             'book' => $bookId,
             'comments' => $comments,
             'rating' => round($rating, 1),
-            'currentUserRating' => $currentUserRating
+            'currentUserRating' => $currentUserRating,
+            'canClaim' => $canClaim
         ]);
     }
 
@@ -233,6 +276,32 @@ class BookController extends Controller
         }
 
         $path = '/books';
+        header("Location: ".$path);
+        exit();
+    }
+
+    public function ownThisBookFromDetails(){
+        $currentUserId = Auth::id();
+
+        $bookIdToOwn = $_POST['bookIdToOwn'];
+
+        $datetime = new \DateTime();
+        $datetime->setTimeZone(new \DateTimeZone('Europe/Skopje'));
+
+        $owns = DB::select('select * from bookstore.owns where book_id = ' . $bookIdToOwn .' and user_id ='. $currentUserId);
+
+        if(sizeof($owns) == 0){
+            $idTag = DB::table('owns')->insertGetId(
+                array('book_id' => $bookIdToOwn, 'user_id' => $currentUserId, 'created_at' => $datetime, 'updated_at' => $datetime)
+            );
+        } else {
+            DB::table('owns')
+                ->where('book_id', $bookIdToOwn)
+                ->where('user_id', $currentUserId)
+                ->update(array('updated_at' => $datetime));
+        }
+
+        $path = '/book/'.$bookIdToOwn;
         header("Location: ".$path);
         exit();
     }

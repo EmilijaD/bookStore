@@ -9,7 +9,7 @@
 
 .homeContainer {
     background-color: lightsteelblue;
-    border-radius: 5px;
+    /*border-radius: 5px;*/
     padding: 2px;
     margin: 10px;
 }
@@ -21,7 +21,7 @@
 .booksContainer {
     border: 2px solid lightgoldenrodyellow;
     padding: 8px;
-    margin:7px;
+    margin:5px;
     background-color: #30302f;
 }
 
