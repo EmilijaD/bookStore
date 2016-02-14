@@ -51,11 +51,9 @@ class UserController extends Controller {
         $id = Auth::id();
         $data['user'] = User::find($id);
 
-        $allBooks = Book::all();
-
+        $allBooks = \DB::table('books')->where('approved', true)->orderBy('created_at', 'desc')->get();
 
         $booksToApprove = \DB::select('select * from bookstore.books where approved = 0' );
-
 
         $owns = Own::all();
 

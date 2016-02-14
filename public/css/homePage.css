@@ -6,3 +6,29 @@
     padding: 2px;
     border: 8px solid #fff;
 }
+
+.homeContainer {
+    background-color: lightsteelblue;
+    border-radius: 5px;
+    padding: 2px;
+    margin: 10px;
+}
+
+.homePageTable{
+    /*background-color: #dba3a9;*/
+}
+
+.booksContainer {
+    border: 2px solid lightgoldenrodyellow;
+    padding: 8px;
+    margin:7px;
+    background-color: #30302f;
+}
+
+.booksContainer h3{
+    color: lightgoldenrodyellow;
+}
+
+.booksContainer a {
+    color: lightsteelblue;
+}

@@ -7,24 +7,47 @@
     <div class="homePageImgDiv">
         <img class="img-responsive center-block" id="homePageImg" src="/images/homePage.jpg">
     </div>
-    @unless(empty($users))
-        There are some people.
-    @else
-        Something else here.
+
+    <div class="homeContainer">
+    @unless(empty($recommendedBooks))
+        <div class="booksContainer">
+        <h3 class="text-success">Recommended Books:</h3>
+        <table class="table table-condensed homePageTable">
+            <thead>
+            <tr class="success">
+            </tr>
+            </thead>
+            <tbody>
+            @foreach ($recommendedBooks as $mybook)
+                <tr>
+                    <td><a href="{{ url('/book/'.$mybook->id) }}">{{ $mybook->title}}</a></td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+        </div>
+
     @endunless
-
-
-    @foreach ($users as $user)
-        <li>{{$user->name}}</li>
-    @endforeach
-
-
     @unless(empty($books))
-        @foreach($books as $book)
-            <div>
-                <a href="/books">{{ $book->title . " - " . $book->authors }}</a>
-            </div>
-        @endforeach
+            <div class="booksContainer">
+        <h3 class="text-info">Latest Books:</h3>
+
+        <table class="table table-condensed homePageTable">
+            <thead>
+            <tr class="info">
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($books as $book)
+                <tr>
+                    <td href="{{ url('/book/'.$book->id) }}"><a
+                                href="{{ url('/book/'.$book->id) }}">{{ $book->title}}</a></td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+                </div>
     @endunless
 
+    </div>
 @stop

@@ -32,7 +32,6 @@
 });*/
 
 Route::get('/', 'PagesController@home');
-Route::get('about', 'PagesController@about');
 
 //Route::get('cards', 'CardsController@index');
 //Route::get('cards/{card}', 'CardsController@show');
@@ -68,7 +67,13 @@ Route::group(['middleware' => ['auth']], function()
 
     Route::get('book/{bookId}', 'BookController@bookDetails');
     Route::post('book/{bookId}/own', 'BookController@ownThisBook');
-//    Route::post('book/{bookId}', 'BookController@addRating');
+
+    Route::post('book/rate', 'RateBookController@rateThisBook');
+
+    Route::post('book/comment', 'CommentBookController@commentThisBook');
+
+    Route::post('book/{bookId}/delete', 'AdminDeleteBookController@deleteThisBook');
+
 });
 
 
