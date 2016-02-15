@@ -15,10 +15,26 @@
                 @if($warning)
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
-                            <div class="label label-danger" id="emptyFieldsWarning">Fill the empty fields and choose at least one category, please.</div>
+                            <div class="label label-danger" id="emptyFieldsWarning">Please fill the empty fields, choose at least one category and upload a file.</div>
                         </div>
                     </div>
                 @endif
+
+                @if($fileSizeWarning)
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-4">
+                            <div class="label label-danger" id="emptyFieldsWarning">File size not allowed.</div>
+                        </div>
+                    </div>
+                @endif
+
+                    @if($fileExtensionWarning)
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <div class="label label-danger" id="emptyFieldsWarning">Only pdf files allowed.</div>
+                            </div>
+                        </div>
+                    @endif
 
                 @if($success)
                     <div class="form-group">
@@ -80,8 +96,9 @@
                 <div class="form-group">
                     <label for="upload" class="col-md-4 control-label">Attachment:</label>
                     <div class="col-md-6">
-                        <input type="file" class="form-control" name="upload" id="upload" placeholder="">
-                        <p class="help-block"></p>
+                        <input type="file" class="form-control" name="userfile" id="userfile" placeholder="">
+
+                        <p class="help-block">Limit: 495 MB (only pdf allowed)</p>
                     </div>
                 </div>
 

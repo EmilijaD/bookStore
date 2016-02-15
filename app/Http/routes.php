@@ -75,6 +75,8 @@ Route::group(['middleware' => ['auth']], function()
 
     Route::post('book/{bookId}/delete', 'AdminDeleteBookController@deleteThisBook');
 
+    Route::get('book/{bookId}/download', 'DownloadBookController@download');
+
 });
 
 

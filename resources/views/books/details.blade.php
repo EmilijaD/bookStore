@@ -28,7 +28,7 @@
 
                         <div class="form-group">
                             <label class="col-md-3 col-sm-12 col-xs-12 text-info">Download</label>
-                            <label class="col-md-9 col-sm-12 col-xs-12" id="download"> Download link</label>
+                            <label class="col-md-9 col-sm-12 col-xs-12" id="download"> <a href="{{ url('/book/'.$book->id.'/download') }}">Download link</a></label>
                         </div>
 
                         <div class="form-group">
