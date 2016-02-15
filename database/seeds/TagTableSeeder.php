@@ -27,23 +27,19 @@ class TagTableSeeder extends Seeder
         ));
         Tag::create(array(
             'book_id'     => '2',
-            'tag'    => 'software',
-        ));
-        Tag::create(array(
-            'book_id'     => '2',
-            'tag'    => 'system architecture',
+            'tag'    => 'System Architecture',
         ));
         Tag::create(array(
             'book_id'     => '3',
-            'tag'    => 'improving design',
+            'tag'    => 'Improving Design',
         ));
         Tag::create(array(
             'book_id'     => '3',
-            'tag'    => 'refactoring',
+            'tag'    => 'Refactoring',
         ));
         Tag::create(array(
             'book_id'     => '3',
-            'tag'    => 'object-oriented code',
+            'tag'    => 'Object-oriented Code',
          ));
         Tag::create(array(
             'book_id'     => '4',

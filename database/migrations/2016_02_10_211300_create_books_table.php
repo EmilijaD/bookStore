@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 class CreateBooksTable extends Migration
 {
@@ -18,9 +19,12 @@ class CreateBooksTable extends Migration
             $table->string('authors');
             $table->boolean('approved'); //ili integer
             $table->string('summary');
+            $table->string('file_path');
 
             $table->timestamps();
         });
+
+//        DB::statement("ALTER TABLE books ADD file LONGBLOB");
     }
 
     /**
